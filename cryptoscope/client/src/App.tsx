@@ -1,33 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ActionIcon, useComputedColorScheme, useMantineColorScheme } from '@mantine/core'
+import { FaSun, FaMoon } from "react-icons/fa6";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const { setColorScheme, colorScheme } = useMantineColorScheme();
 
+  const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+  const toggleColorScheme = () => {
+    setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
+  };
+  
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ActionIcon m='5px' variant='outline' onClick={toggleColorScheme} color={colorScheme === 'dark' ? '#dee2e6' : '#242424'}>
+        <div>
+          {colorScheme === 'dark' ? <FaSun /> : <FaMoon />}
+        </div>
+      </ActionIcon>
     </>
   )
 }
